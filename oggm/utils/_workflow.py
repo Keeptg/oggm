@@ -1405,6 +1405,22 @@ def glacier_statistics(gdir, inversion_only=False):
             pass
 
         try:
+            # Ice velocity related stuff
+            fpath = gdir.get_filepath('gridded_data')
+            with ncDataset(fpath) as nc:
+                obs_icevel_x = nc.variables['obs_icevel_x'][:]
+                obs_icevel_y = nc.variables['obs_icevel_y'][:]
+                obs_icevel = np.sqrt(obs_icevel_x**2 + obs_icevel_y**2)
+                valid_vel_mask = np.where(np.isfinite(obs_icevel), 1, 0)
+                mask = nc.variables['glacier_mask'][:] == 1
+                valid_vel_in_glc_mask = np.where(valid_vel_mask+mask>1, 1, 0)
+            d['mean_ice_vel'] = np.nansum(np.where(np.isfinite(obs_icevel), 
+                                                   obs_icevel, np.nan))
+            d['availabel_ice_vel_area_perc'] = np.sum(valid_vel_in_glc_mask) / np.sum(mask)
+        except BaseException:
+            pass
+
+        try:
             # Centerlines
             cls = gdir.read_pickle('centerlines')
             longuest = 0.
