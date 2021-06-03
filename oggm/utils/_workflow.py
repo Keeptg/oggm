@@ -1413,10 +1413,10 @@ def glacier_statistics(gdir, inversion_only=False):
                 obs_icevel = np.sqrt(obs_icevel_x**2 + obs_icevel_y**2)
                 valid_vel_mask = np.where(np.isfinite(obs_icevel), 1, 0)
                 mask = nc.variables['glacier_mask'][:] == 1
-                valid_vel_in_glc_mask = np.where(valid_vel_mask+mask>1, 1, 0)
-            d['mean_ice_vel'] = np.nansum(np.where(np.isfinite(obs_icevel), 
-                                                   obs_icevel, np.nan))
-            d['availabel_ice_vel_area_perc'] = np.sum(valid_vel_in_glc_mask) / np.sum(mask)
+                valid_vel_mask = np.where(valid_vel_mask+mask>1, 1, 0)
+            d['mean_ice_vel'] = np.nansum(np.where(np.isfinite(obs_icevel), obs_icevel,
+                                                   np.nan)) / np.sum(valid_vel_mask)
+            d['availabel_ice_vel_area_perc'] = np.sum(valid_vel_mask) / np.sum(mask)
         except BaseException:
             pass
 
