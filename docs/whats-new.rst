@@ -16,6 +16,18 @@ Enhancements
 - Added ``cook_rgidf()`` function in ``oggm.utils`` to simplify the use
   of a non-RGI glacier inventory in OGGM (:pull:`1251`).
   By `Li Fei <https://github.com/Keeptg>`_
+- Added support for last millenium reanalysis data to the shop (:pull:`1257`).
+  By `Fabien Maussion <https://github.com/fmaussion>`_
+- Added a new ``apply_func``  argument in ``utils.compile_glacier_statistics``
+  that allows user to compute any new statistics from a gdir themselves (:pull:`1259`)
+  By `Li Fei <https://github.com/Keeptg>`_
+- Added a new ``workflow.match_geodetic_mb_for_selection`` function to match
+  the MB bias for any selection of glaciers (:pull:`1248`)
+  By `Patrick Schmitt <https://github.com/pat-schmitt>`_
+- Added functionality to control the area over which the hydrological
+  output is computed (:pull:`1264`).
+  By `Fabien Maussion <https://github.com/fmaussion>`_
+
 
 Bug fixes
 ~~~~~~~~~
